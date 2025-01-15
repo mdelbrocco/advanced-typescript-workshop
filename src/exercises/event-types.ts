@@ -13,8 +13,21 @@ type Events =
   | { type: 'update'; updates: string; timestamp: Date }
   | { type: 'loaded'; success: boolean };
 
-// Update this function
-declare function emit<K>(type: K, payload: unknown): void;
+type Wrong = Omit<Events, 'type'>;
+//   ^?
+
+type SomeProgress = Extract<Events, { type: 'click' }>;
+//   ^?
+
+type EvenMoreProgress = Omit<Extract<Events, { type: 'click' }>, 'type'>;
+//              ^?
+
+// so now from here, just need to get all possible index accessed `type` values (not just click):
+type PossibleTypeValues = Events['type'];
+//   ^?
+
+// lastly remember that in the function signature, we can use `extends`.
+declare function emit<K extends Events['type']>(type: K, payload: Omit<Extract<Events, { type: K }>, 'type'>): void;
 
 emit('click', { clicks: 42 });
 emit('error', { error: new Error('some error') });
