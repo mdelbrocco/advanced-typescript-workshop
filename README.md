@@ -18,5 +18,7 @@ https://davidnic11.github.io/workshop-advanced-typescript/1
 
 Extensions used in this project:
 
-- Prettify "dumbs down" the reported types a bit so they're easier to read/understand
+- Prettify simplifies the reported types a bit so they're easier to read/understand
 - "TwoSlash" gives you a command you can run from command pallette that adds `// ?^` notation describing the type of a highlighted property.
+
+My takeaway - consider whether you want to implement typing like this. It can be difficult to read/maintain, but provides a good experience to developers that are using your code. So for example, this is appropriate in library code, shared code, etc.
