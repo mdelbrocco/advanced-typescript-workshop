@@ -16,7 +16,13 @@ const parser3 = {
   extract: () => true,
 };
 
-type GetParserResult<T> = unknown;
+type GetParserResult<T> = T extends { parse: () => number }
+  ? number
+  : T extends () => any
+    ? ReturnType<T>
+    : T extends { extract: () => boolean }
+      ? boolean
+      : never;
 
 type cases = [
   Expect<Equal<GetParserResult<typeof parser1>, number>>,
